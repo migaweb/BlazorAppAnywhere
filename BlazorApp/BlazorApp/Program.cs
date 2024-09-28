@@ -1,7 +1,11 @@
+using BlazorApp.Client;
+using BlazorApp.Client.Components;
 using BlazorApp.Client.Pages;
 using BlazorApp.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<BlazorEventHelper>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -10,13 +14,27 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddCors(options =>
+{
+  Console.WriteLine("CORS middleware is running.");
+  options.AddPolicy("AllowLocalhost",
+            builder =>
+            {
+              builder.AllowAnyOrigin().AllowAnyHeader()
+                   .AllowAnyMethod();
+            });
+});
+
 builder.Services.AddControllers();
 
 // Add services to the container
 builder.Services.AddEndpointsApiExplorer();
 
 
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -32,7 +50,10 @@ else
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowLocalhost");
+
 app.MapControllers();
+app.MapFallbackToFile("index.html");
 
 app.UseStaticFiles();
 app.UseAntiforgery();

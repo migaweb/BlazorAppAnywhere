@@ -11,7 +11,11 @@ namespace WebApplication
   {
     protected void Page_Load(object sender, EventArgs e)
     {
+      string key = "WebFormsValue";
+      string value = "myValue: " + DateTime.Now.Ticks;
+      string script = $"setLocalStorage('{key}', '{value}');";
 
+      ClientScript.RegisterStartupScript(this.GetType(), "setLocalStorage", script, true);
     }
   }
 }

@@ -1,10 +1,35 @@
 ﻿
+@if(_isLoading) {
+<text>Loading Blazor component ...</text>
+}
+else
+{
+  
+      <div style="border: solid 1px blue; padding:10px;">
 
-<h3>Greetings</h3>
+        <h3>Blazor component</h3>
 
-<p>
-  Welcome @Name to blazor! You are the best!
+        <p>
+          Welcome @Name to blazor! This was set as parameter value.
+        </p>
+        <p>
+          <b>Local storage value:</b> @_localStorageValue
+        </p>
+        @if (!string.IsNullOrEmpty(_eventFromWebForms))
+        {
+          <p>
+            <b>Event received in Blazor:</b> @_eventFromWebForms
+          </p>
+        }
 
+    @if (!string.IsNullOrEmpty(_messageFromWebForms)) {
+      <p>
+        <b>Message from Web Forms:</b> @_messageFromWebForms
+      </p>
+    }
 
-  <button type="button" @onclick="IncrementCounter">Increment (@_counter)</button>
-</p>
+        <button type="button" @onclick="IncrementCounter">Increment (@_counter)</button>
+        <button type="button" @onclick="DispatchEventToWebForms">Trigger event i Web Forms</button>
+
+      </div>
+}

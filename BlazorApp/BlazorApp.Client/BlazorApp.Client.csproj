@@ -13,4 +13,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.CustomElements" Version="8.0.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    
+  </ItemGroup>
+
 </Project>
