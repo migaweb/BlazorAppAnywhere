@@ -4,11 +4,12 @@ using System.Net.Http.Json;
 
 namespace BlazorApp.Client.Components;
 
-public partial class Greetings : ComponentBase
+public partial class Greetings : ComponentBase, IDisposable
 {
   [Inject] HttpClient Http { get; set; } = null!;
   [Inject] IJSRuntime JSRuntime { get; set; } = null!;
   [Inject] BlazorEventHelper BlazorEventHelper { get; set; } = null!;
+  [Inject] private StateStore StateStore { get; set; } = null!;
   [Parameter] public string Name { get; set; } = string.Empty;
 
   private int _counter = 0;
@@ -22,10 +23,16 @@ public partial class Greetings : ComponentBase
   {
     if (firstRender)
     {
+      StateStore.AddStateChangeListeners(StateHasChanged);
+
       BlazorEventHelper.OnReceivedEvent += HandleBlazorEvent;
       BlazorEventHelper.OnErrorEvent += HandleBlazorError;
       _dotNetHelper = DotNetObjectReference.Create(BlazorEventHelper);
-      await JSRuntime.InvokeVoidAsync("setupBlazorEventListener", _dotNetHelper);
+      try
+      {
+        await JSRuntime.InvokeVoidAsync("setupBlazorEventListener", _dotNetHelper);
+      }
+      catch { }
       _localStorageValue = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "WebFormsValue");
 
       _isLoading = false;
@@ -61,6 +68,11 @@ public partial class Greetings : ComponentBase
   private async Task IncrementCounter()
   {
     _counter = await Http.GetFromJsonAsync<int>("api/Counter/IncrementCounter");
+  }
+
+  public void Dispose()
+  {
+    StateStore.RemoveStateChangeListeners(StateHasChanged);
   }
 
 }

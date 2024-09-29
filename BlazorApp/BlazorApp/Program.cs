@@ -6,6 +6,8 @@ using BlazorApp.Components;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<BlazorEventHelper>();
+builder.Services.AddScoped<IEnvironmentService, WebFormsEnvironmentService>();
+builder.Services.AddScoped<StateStore>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

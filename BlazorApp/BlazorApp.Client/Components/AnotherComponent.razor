@@ -1,0 +1,8 @@
+﻿@inherits BlazorApp.Client.Components.CustomElementComponentBase
+
+<p>@_environment</p>
+
+<input type="text" @bind-value=_newMessage placeholder="Enter new state" />
+<button type="button" @onclick=UpdateState>Update state</button>
+<p>State: @StateStore.GetState().CurrentMessage</p>
+

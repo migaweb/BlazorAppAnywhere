@@ -4,8 +4,12 @@
 
   <div id="app">
     <my-greeting name="Some name" />
+     
   </div>
 
+  <div>
+    <blazor-environment />
+  </div>
   <div style="border:solid 1px red;margin-top:10px; padding: 10px;">
     <h3>Web Forms</h3>
     <div>
@@ -27,15 +31,33 @@
     }
 
     function setupBlazorEventListener() {
-      document.addEventListener("blazor-event", function (e) {
-        // Call the Blazor component method with the event data
+
+      // Remove any existing event listeners to avoid duplicates
+      // Must prevent memory leask and unexpected behavior from duplicates
+      // to keep the app stable.
+      document.removeEventListener("blazor-event", blazorEventHandler);
+      document.removeEventListener("blazor-error", blazorErrorHandler);
+
+      // Define event handlers
+      function blazorEventHandler(e) {
         DotNet.invokeMethodAsync("BlazorApp.Client", "HandleBlazorEvent", e.detail.message);
-      });
-      document.addEventListener("blazor-error", function (e) {
-        // Call the Blazor component method with the event data
+      }
+
+      function blazorErrorHandler(e) {
         DotNet.invokeMethodAsync("BlazorApp.Client", "HandleBlazorError", e.detail.message);
-      });
+      }
+
+      document.addEventListener("blazor-event", blazorEventHandler);
+      document.addEventListener("blazor-error", blazorErrorHandler);
+
+      // Might be needed or not?
+      window.onunload = function () {
+        document.removeEventListener("blazor-event", blazorEventHandler);
+        document.removeEventListener("blazor-error", blazorErrorHandler);
+      }
     }
+
+
 
     function triggerBlazorEvent() {
       const eventData = { message: "Data from Web Forms" }; // Example data to send
