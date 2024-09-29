@@ -71,7 +71,7 @@ The following code initializes the components event listeners in the Web Forms a
     }
     catch { }
 ```
-C# methods that needs to be called from JavaScript needs to be decorated with JSInvicable attribute.
+C# methods that needs to be called from JavaScript needs to be decorated with the JSInvokable attribute.
 ```csharp
 public class BlazorEventHelper
 {
