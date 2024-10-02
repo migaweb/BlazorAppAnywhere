@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp.Client", "BlazorA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication\WebApplication.csproj", "{62ABA185-F598-4D31-8C9B-78D088D7CD89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreprocessDirective", "PreprocessDirective\PreprocessDirective.csproj", "{C3ABE11C-1467-4BAD-A648-4E7E429B004C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{62ABA185-F598-4D31-8C9B-78D088D7CD89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62ABA185-F598-4D31-8C9B-78D088D7CD89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62ABA185-F598-4D31-8C9B-78D088D7CD89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3ABE11C-1467-4BAD-A648-4E7E429B004C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3ABE11C-1467-4BAD-A648-4E7E429B004C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3ABE11C-1467-4BAD-A648-4E7E429B004C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3ABE11C-1467-4BAD-A648-4E7E429B004C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
