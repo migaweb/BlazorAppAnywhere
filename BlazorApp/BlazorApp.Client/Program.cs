@@ -9,9 +9,14 @@ builder.Services.AddScoped<BlazorEventHelper>();
 builder.Services.AddScoped<IEnvironmentService, WebFormsEnvironmentService>();
 builder.Services.AddScoped<StateStore>();
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7124/") });
 
+#if USE_CUSTOM_ELEMENTS
 builder.RootComponents.RegisterCustomElement<Greetings>("my-greeting");
 builder.RootComponents.RegisterCustomElement<AnotherComponent>("blazor-environment");
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7124/") });
+#else
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+#endif
+
 
 await builder.Build().RunAsync();
